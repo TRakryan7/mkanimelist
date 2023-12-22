@@ -2,9 +2,10 @@
 
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const InputSearch = () => {
+    const [show,setShow] = useState(false)
 
     const searchRef = useRef()
     const router = useRouter()
@@ -20,16 +21,20 @@ const InputSearch = () => {
         }
     }
 
+    const showInput = () =>{
+        setShow(!show);
+    }
+
 
     return ( 
         <div className="relative">
             <input 
                 placeholder="cari anime..."
-                className="p-2 rounded w-full"
+                className={`p-2 rounded w-full transition-all duration-700 opacity-0  ${show ? 'visible opacity-100' : 'invisible'}`}
                 ref={searchRef}
                 onKeyDown={handlerSearch}
             ></input>
-            <button className="absolute top-2 end-3" onClick={handlerSearch}>
+            <button className="absolute top-2 end-3" onClick={showInput}>
                 <MagnifyingGlass size={24} />
             </button>
         </div>
